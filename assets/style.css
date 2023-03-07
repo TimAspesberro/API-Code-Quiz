@@ -18,8 +18,9 @@ nav {
     width: auto;
     margin-bottom: 40px;
     text-align: center;
-    color: white;
-    background-color: rgb(119, 0, 0);
+    color: gold;
+    background-color: rgb(56, 4, 80);
+    border-bottom: 3px solid gold;
 }
 
 
@@ -52,3 +53,12 @@ nav {
     font-size: 20px;
 }
 
+#question {
+    font-weight: bold;
+}
+
+#wrongEl {
+    min-height: 40px;
+    color: red;
+    font-weight: bold;
+}

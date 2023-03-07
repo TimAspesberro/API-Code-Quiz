@@ -8,7 +8,10 @@ var answerButtons = document.getElementById("answer-buttons");
 var startBtn = document.getElementById("start-button");
 var highscoreBtn = document.getElementById("highscore-btn");
 
-const questions = ['Which of these is not a javascript data type?', 'Which html tag is used to create a navigation bar?', 'Which of these is the css universal selector?', 'Which one of these is not a programming language?'];
+const questions = ['Which of these is not a javascript data type?', 
+    'Which html tag is used to create a navigation bar?', 
+    'Which of these is the css universal selector?', 
+    'Which one of these is not a programming language?'];
 
 const answersOne = ['number', 'string', 'array', 'undefined']
 const answersTwo = ['body', 'nav', 'div', 'main']
@@ -36,15 +39,35 @@ const addElements = () => {
 };
 
 
-//coutdown timer
+var isWrong = false;
+
+const wrongAns = () => {
+    if (isWrong === false) {
+        isWrong = true
+    }
+};
+
+//countdown timer
 
 const countdown = () => {
-    var time = 5;
+    var time = 59;
     const countdownEl = document.getElementById('countdownEl');
 
     const timerInterval = setInterval(() => {
-        countdownEl.innerHTML = `${time}`;
+        countdownEl.innerHTML = `Remaining Time: ${time}`;
         time--;
+
+        if (isWrong){
+            time = time - 5;
+            document.getElementById('wrongEl').innerHTML = `-5 seconds`
+            const wrongMsg = () => {setTimeout(()=> {
+                document.getElementById('wrongEl').innerHTML = ``;
+            }, 2000)
+            }
+            wrongMsg();
+            isWrong = false;
+        }
+
         if (time <= 0){
             clearInterval(timerInterval);
             countdownEl.innerHTML = 'No Time Left, Try again.'
@@ -70,13 +93,13 @@ const quizOne = () => {
     answerEl(answersOne);
 
     document.getElementById("answerOne").addEventListener("click", () => {
-        console.log('wrong')
+        wrongAns()
     });
     document.getElementById("answerTwo").addEventListener("click", () => {
-        console.log('wrong')
+        wrongAns()
     });
     document.getElementById("answerThree").addEventListener("click", () => {
-        console.log('wrong')
+        wrongAns()
     });
     document.getElementById("answerFour").addEventListener("click", () => {
         document.getElementById('que-el').remove();
@@ -84,7 +107,7 @@ const quizOne = () => {
         document.getElementById('answerTwo').remove();
         document.getElementById('answerThree').remove();
         document.getElementById('answerFour').remove();
-        quizTwo();
+        quizTwo()
     });
     
 }
@@ -94,7 +117,7 @@ const quizTwo = () => {
     questionEl(questions[1]);
     
     document.getElementById("answerOne").addEventListener("click", () => {
-        console.log('wrong')
+        wrongAns()
     });
     document.getElementById("answerTwo").addEventListener("click", () => {
         document.getElementById('que-el').remove();
@@ -105,10 +128,10 @@ const quizTwo = () => {
         quizThree();
     });
     document.getElementById("answerThree").addEventListener("click", () => {
-        console.log('wrong')
+        wrongAns()
     });
     document.getElementById("answerFour").addEventListener("click", () => {
-        console.log('wrong')
+        wrongAns()
     });
 }
 
@@ -125,13 +148,13 @@ const quizThree = () => {
         quizFour();
     });
     document.getElementById("answerTwo").addEventListener("click", () => {
-        console.log('wrong')
+        wrongAns()
     });
     document.getElementById("answerThree").addEventListener("click", () => {
-        console.log('wrong')
+        wrongAns()
     });
     document.getElementById("answerFour").addEventListener("click", () => {
-        console.log('wrong')
+        wrongAns()
     });
 }
 
@@ -140,13 +163,13 @@ const quizFour = () => {
     answerEl(answersFour);
 
     document.getElementById("answerOne").addEventListener("click", () => {
-        console.log('wrong')
+        wrongAns()
     });
     document.getElementById("answerTwo").addEventListener("click", () => {
-        console.log('wrong')
+        wrongAns()
     });
     document.getElementById("answerThree").addEventListener("click", () => {
-        console.log('wrong')
+        wrongAns()
     });
     document.getElementById("answerFour").addEventListener("click", () => {
         document.getElementById('que-el').remove();
@@ -154,6 +177,7 @@ const quizFour = () => {
         document.getElementById('answerTwo').remove();
         document.getElementById('answerThree').remove();
         document.getElementById('answerFour').remove();
+        clearInterval(timerInterval);
         questionEl('Congratulations!');
     });
 }
