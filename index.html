@@ -10,15 +10,22 @@
 
 <body>
 
-    <nav class="highscore">
-        <button id="highscore-btn">Highscores</button>
+    <nav>
+        <div class="highscore">
+            <h2>Code Quiz</h2>         
+        </div>
     </nav>
+
+    <div id="count">
+        <p id="countdownEl">60</p>
+    </div>
+
     <div id="box-container" class="container">
         <div id="question"></div>
         <div id="answer-buttons" class="btn-grid">
            <!--answers will show up here-->
         </div>
-        <div class="controls">
+        <div id="startEl" class="controls">
             <button id="start-button" class="start-btn btn">Start Quiz</button>
         </div>
     </div>

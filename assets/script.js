@@ -33,7 +33,36 @@ const addElements = () => {
     document.getElementById("box-container").innerHTML += `
     <div id="question"></div>
     <div id="answer-buttons" class="btn-grid">`
-}
+};
+
+
+//coutdown timer
+
+const countdown = () => {
+    var time = 5;
+    const countdownEl = document.getElementById('countdownEl');
+
+    const timerInterval = setInterval(() => {
+        countdownEl.innerHTML = `${time}`;
+        time--;
+        if (time <= 0){
+            clearInterval(timerInterval);
+            countdownEl.innerHTML = 'No Time Left, Try again.'
+            document.getElementById('que-el').remove();
+            document.getElementById('answerOne').remove();
+            document.getElementById('answerTwo').remove();
+            document.getElementById('answerThree').remove();
+            document.getElementById('answerFour').remove();
+            document.getElementById('startEl').innerHTML = `<button id="start-button" class="start-btn btn">Start Quiz</button>`;
+            document.getElementById('start-button').addEventListener('click', () => {
+                document.getElementById('start-button').remove();
+                startQuiz();
+                
+            });
+        }
+    }, 1000);
+    
+};
 
 
 const quizOne = () => {
@@ -132,9 +161,8 @@ const quizFour = () => {
 
 const startQuiz = () => {
     startBtn.remove();
-    setTimeout (() => {
-        quizOne();
-    });
+    quizOne();
+    countdown();
 }
 
 startBtn.addEventListener('click', (event) => {
