@@ -62,3 +62,14 @@ nav {
     color: red;
     font-weight: bold;
 }
+
+#doneEl {
+    min-height: 40px;
+    color: green;
+    font-weight: bold;
+}
+
+#top-score {
+    text-align: end;
+    margin-right: 10%;
+}

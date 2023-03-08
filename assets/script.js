@@ -49,6 +49,12 @@ const wrongAns = () => {
 
 //countdown timer
 
+var isDone = false;
+const quizDone = () => {
+    isDone = true;
+};
+
+
 const countdown = () => {
     var time = 59;
     const countdownEl = document.getElementById('countdownEl');
@@ -83,6 +89,31 @@ const countdown = () => {
                 
             });
         }
+
+        score = '';
+        myScore = '';
+        
+        const highscore = (time) => {
+            score = time;
+            myScore = 59 - score;
+            document.getElementById('doneEl').innerHTML = `You finished the quiz in ${myScore} seconds!`
+        };
+
+        if (isDone === true){
+            clearInterval(timerInterval)
+            console.log('stopped timer')
+            highscore(time);
+            console.log(myScore)
+
+            topScore = localStorage.getItem('score')
+            if (myScore <= topScore || !topScore){
+            localStorage.setItem('score', myScore);
+            document.getElementById('top-score').innerHTML = `Highscore: ${myScore}`;
+            console.log('new top score!')
+            }
+    
+        };
+
     }, 1000);
     
 };
@@ -177,14 +208,24 @@ const quizFour = () => {
         document.getElementById('answerTwo').remove();
         document.getElementById('answerThree').remove();
         document.getElementById('answerFour').remove();
-        clearInterval(timerInterval);
         questionEl('Congratulations!');
+        quizDone();
     });
+}
+
+const getScore = () => {
+    var topScore = localStorage.getItem('score');
+    if (!topScore){
+        document.getElementById('top-score').innerHTML = `Highscore: N/A`
+    } else {
+    document.getElementById('top-score').innerHTML = `Highscore: ${topScore}`;
+    }   
 }
 
 
 const startQuiz = () => {
     startBtn.remove();
+    document.getElementById('button').remove();
     quizOne();
     countdown();
 }
@@ -193,3 +234,5 @@ startBtn.addEventListener('click', (event) => {
     event.preventDefault();
     startQuiz();
 });
+
+getScore();
